@@ -1,0 +1,117 @@
+
+
+@keyframes right {
+	from {left: -300px;}
+	to {left: 0px;}
+}
+
+@keyframes left {
+	from {left: 0px;}
+	to {left: -300px;}
+}
+
+@keyframes bob {
+	0% 	 {top: 60%;
+		  transform: rotate(-4deg); }
+
+	100% {top: 63%;	
+		  transform: rotate(4deg); }
+}
+
+/*@keyframes sway {
+	from {transform: rotate(-4deg);}
+	to {transform: rotate(4deg);}
+}*/
+
+
+
+html, body {
+	height: 100%;
+	margin: 0;
+}
+
+h1 {
+	position: fixed;
+	padding: 3% 4%;
+	top: 0;
+	left: 0;
+	font-family: 'IM Fell English SC', serif;
+	font-size: 60px;
+	text-align: center;
+	font-weight: bold;
+	z-index: 10;
+
+}
+
+#sky {
+	background: linear-gradient(red, orange, orange);
+	min-height: 100%;
+}
+
+#waves {
+	position: absolute;
+
+}
+
+#row-0-Waves {
+	position: fixed;
+	width:110%;
+	left: 0;
+	bottom: 30%;
+	animation: left 40s linear 0s infinite alternate;	
+}
+
+#row-1-Waves {
+	position: fixed;
+
+	width:110%;
+	bottom: 30%;
+	animation: right 36s linear 0s infinite alternate;
+}
+
+#row-2-Waves {
+	position: fixed;
+	width:110%;
+	bottom: 24%;
+	animation: left 33s linear 0s infinite alternate;
+}
+
+#row-3-Waves {
+	position: fixed;
+	width:110%;
+	bottom: 13%;
+	animation: right 30s linear 0s infinite alternate;
+}
+
+#row-4-Waves {
+	position: fixed;
+	width:110%;
+	bottom: 8%;
+	animation: left 26s linear 0s infinite alternate;
+}
+
+
+#row-5-Waves {
+	position: fixed;
+	bottom: -1%;
+	animation: right 21s linear 0s infinite alternate;
+}
+
+#shark {
+	position: absolute;
+	width: 75%;
+	bottom: 300px;
+	left: 36px;
+	z-index: 10;
+}
+
+#boat {
+	position: fixed;
+	width: 425px;
+	top: 60%;
+	left: 30%;
+	transform: rotate(-4deg);
+	animation: bob 7s ease-in 0s infinite alternate;
+/*	animation: sway 7s ease-in 0s infinite alternate;
+*/}
+
