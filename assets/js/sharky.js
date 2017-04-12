@@ -28,29 +28,37 @@ var Game = function(name, wordToGuess) {
 	var scum = document.getElementById("audioScum");
 	var arr = document.getElementById("audioArr");	
 
+	document.getElementById("word").innerHTML = this.hiddenWord.join('');
+
 
 	this.guess = function(guessedLetter) {
 
-		if(!this.word.includes(guessedLetter)) {
+		if ( this.lettersPlayed.notInWord.includes(guessedLetter) || this.lettersPlayed.inWord.includes(guessedLetter) ) {
 
-			this.lettersPlayed.notInWord.push(guessedLetter);
-			this.fail();
+				this.message('ya already guessed that letter you scurvy wentch!');
+			
+			} else if( !this.word.includes(guessedLetter) ) {
 
-		} else {
+					this.lettersPlayed.notInWord.push(guessedLetter);
+					
+					this.fail();
 
-			var guess = new RegExp( guessedLetter , 'ig');
+				} else {
 
-			while (check = guess.exec(this.word)) {
+						var guess = new RegExp( guessedLetter , 'ig');
 
-				this.hiddenWord[check.index] = guessedLetter;
+						while (check = guess.exec(this.word)) {
 
-			}
+							this.hiddenWord[check.index] = guessedLetter;
 
-			this.success();
-	
-		}
+						}
 
-	}
+						this.lettersPlayed.inWord.push(guessedLetter);
+						
+						this.success();
+		
+						}
+				}
 
 
 	this.fail = function() {
@@ -59,13 +67,17 @@ var Game = function(name, wordToGuess) {
 		
 		scum.play();
 
+		console.log(this.lettersPlayed.notInWord);
+
 		if(this.guessesLeft <= 0) this.endOfGame();
 
 	}
 
 
 	this.success = function() {
-		
+
+		document.getElementById("word").innerHTML = this.hiddenWord.join('');
+
 		arr.play();
 
 	}
@@ -81,7 +93,8 @@ var Game = function(name, wordToGuess) {
 	}
 
 	this.message = function(msg) {
-		//messmsg
+		console.log('played');
+		document.getElementById("message").innerHTML = msg.toUpperCase();
 	}
 
 }
