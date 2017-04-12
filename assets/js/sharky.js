@@ -32,7 +32,7 @@ var Game = function(user, wordToGuess) {
 	console.log(wordToGuess);
 
 	this.user = user;
-	this.word = wordToGuess;
+	this.word = wordToGuess.toUpperCase();
 	this.hiddenWord = '_'.repeat(this.word.length).split('');	
 	this.guessesLeft = this.word.length;
 	this.active = true;
@@ -45,19 +45,13 @@ var Game = function(user, wordToGuess) {
 	var scum = document.getElementById("audioScum");
 	var arr = document.getElementById("audioArr");	
 
-	var instructions = "out with the PIRATE PASSWORD you filthy bilge rat! or down to Davey Jones' locker with ye!";
+	var instructions = "guess the PIRATE PASSWORD you filthy bilge rat! or down to Davey Jones' locker with ye!";
 	
 
 	document.getElementById("word").innerHTML = this.hiddenWord.join('');
 
 
 	this.guess = function(guessedLetter) {
-
-		if (guessedLetter.charCodeAt(0) < 65 || guessedLetter.charCodeAt(0) > 90 || guessedLetter === 'SHIFT' || guessedLetter === 'META' || guessedLetter === 'CONTROL' || guessedLetter === 'ALT' || guessedLetter === 'ARROWUP' || guessedLetter === 'ARROWDOWN'  || guessedLetter === 'ARROWLEFT'  || guessedLetter === 'ARROWRIGHT' || guessedLetter === 'CAPSLOCK' || guessedLetter === 'BACKSPACE') {
-
-			this.message('try entering some REAL characters you worthless peice of shark bait!');
-		
-		} else
 
 		if ( this.lettersPlayed.notInWord.includes(guessedLetter) || this.lettersPlayed.inWord.includes(guessedLetter) ) {
 
@@ -127,20 +121,22 @@ var Game = function(user, wordToGuess) {
 	this.endOfGame = function(win) {
 
 		if(win) {
+			this.message('ye are a PIRATE indeed! welcome aboard! Try to guess me another.');
+			
 			this.user.addWin();
 		}
 
 		if(!win) {
+			this.message("'tis soon down to the DEPTHS with you scallywag! try me another.");
+			
+			this.lettersPlayed.notInWord = [];
+
+			document.getElementById("guessed").innerHTML = '';
+
 			this.user.addLoss();
 		}
-
-		this.message('try again you worthless deck swab! enter a NEW PIRATE PASSWORD!');
 		
-		console.log('wins', this.user.getWins());
-
-		console.log('losses', this.user.getLosses());
-
-
+	
 		newGame = new Game(user, pirateWords[Math.floor(Math.random() * pirateWords.length)]);
 
 	}
@@ -165,16 +161,18 @@ document.onkeyup = function(event) {
 
 	if(newGame) {
 		
-		var userInput = event.key.toUpperCase();
+		var userInput = event.keyCode;
 
-			console.log(userInput.charCodeAt(0));
+		console.log(event);
 
-			newGame.guess(userInput);
+		if(userInput > 64 && userInput < 91) {
 
-		} //else console.log('invalid key');
-	} 
+			newGame.guess(String.fromCharCode(userInput));
 
+		} else newGame.message('try entering some REAL characters you worthless peice of shark bait!');
+	}
 
+}
 
 
 
