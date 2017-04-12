@@ -29,7 +29,7 @@ var User = function(name) {
 
 var Game = function(user, wordToGuess) {
 
-	console.log(wordToGuess);
+	console.log(wordToGuess); //for debuggin', and cheating
 
 	this.user = user;
 	this.word = wordToGuess.toUpperCase();
@@ -84,7 +84,7 @@ var Game = function(user, wordToGuess) {
 						this.lettersPlayed.inWord.push(guessedLetter);
 						
 						this.success();
-		
+			
 						}
 				}
 
@@ -190,9 +190,7 @@ var Game = function(user, wordToGuess) {
 	
 	}
 
-
 	this.updateBoard();
-
 
 }
 
