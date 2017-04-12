@@ -1,6 +1,7 @@
 
 var pirateWords = ['avast', 'arrrrrrghhh', 'mutiney', 'matey', 'binnacle', 'head', 'monkey', 'parrot', 'landlubber', 'booty', 'cutlass', 'jolly', 'jollyroger', 'shark', 'scallywag','whale', 'plank', 'yohoho', 'blimey', 'heave', 'treasure', 'parley', 'holdfast', 'skull', 'pacific' ];
 
+
 var User = function(name) {
 
 	this.name = name;
@@ -22,7 +23,12 @@ var Game = function(name, wordToGuess) {
 		inWord: [],
 		notInWord: []
 	};
-	
+
+
+	var scum = document.getElementById("audioScum");
+	var arr = document.getElementById("audioArr");	
+
+
 	this.guess = function(guessedLetter) {
 
 		if(!this.word.includes(guessedLetter)) {
@@ -40,43 +46,30 @@ var Game = function(name, wordToGuess) {
 
 			}
 
-			console.log(this.hiddenWord);	
+			this.success();
+	
 		}
-	
-
-	
-	}
-
-	this.success = function() {
 
 	}
+
 
 	this.fail = function() {
+
 		this.guessesLeft--;
+		
+		scum.play();
 
-		console.log('guess left:', this.guessesLeft);
-			
 		if(this.guessesLeft <= 0) this.endOfGame();
-	}
-
-	this.endOfTurn = function(success, array) {
-		
-		if(success) {
-
-			console.log('letter(s) found at: ', array);
-
-		
-		} else {
-
-			console.log('no letters');
-			this.guessesLeft--;
-			console.log(this.guessesLeft);
-			
-			if(this.guessesLeft <= 0) this.endOfGame();
-		
-		}
 
 	}
+
+
+	this.success = function() {
+		
+		arr.play();
+
+	}
+
 
 	this.endOfGame = function() {
 
