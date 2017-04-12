@@ -41,7 +41,7 @@ var Game = function(user, wordToGuess) {
 		notInWord: []
 	};
 
-
+	
 	var scum = document.getElementById("audioScum");
 	var arr = document.getElementById("audioArr");	
 
@@ -49,6 +49,12 @@ var Game = function(user, wordToGuess) {
 	
 
 	document.getElementById("word").innerHTML = this.hiddenWord.join('');
+
+
+	this.reset = function() {
+
+
+	}
 
 
 	this.guess = function(guessedLetter) {
@@ -97,7 +103,7 @@ var Game = function(user, wordToGuess) {
 
 		scum.play();
 
-		if(this.guessesLeft <= 0) this.endOfGame();
+		this.updateBoard();
 
 	}
 
@@ -110,10 +116,36 @@ var Game = function(user, wordToGuess) {
 
 		arr.play();
 
+		this.updateBoard();
+
 		if (this.hiddenWord.join().includes('_') === false) {
-			this.endOfGame(true);
-			console.log('win');
+
+			this.endOfGame(true);		
 		}
+
+	}
+
+
+	this.updateBoard = function() {
+
+		if(this.guessesLeft > 0) {
+			
+			guessesHtml = this.guessesLeft + " parleys left";
+
+			document.getElementById("parley").innerHTML = guessesHtml;
+		
+		}
+
+		winsHtml = "<img src='assets/images/rum.png' class='rum'>".repeat(this.user.getWins());
+
+		document.getElementById("winsDiv").innerHTML = winsHtml;
+
+	
+		losesHtml = "<img src='assets/images/bones.png' class='jollyRoger'>".repeat(this.user.getLosses());
+
+		document.getElementById("lossesDiv").innerHTML = losesHtml;
+
+
 
 	}
 
@@ -121,9 +153,14 @@ var Game = function(user, wordToGuess) {
 	this.endOfGame = function(win) {
 
 		if(win) {
-			this.message('ye are a PIRATE indeed! welcome aboard! Try to guess me another.');
+			this.message('ye arrrrr a PIRATE indeed! welcome aboard! Try to guess me another.');
 			
+			this.guessesLeft = null;
+
+			document.getElementById("guessed").innerHTML = '';
+
 			this.user.addWin();
+
 		}
 
 		if(!win) {
@@ -131,14 +168,19 @@ var Game = function(user, wordToGuess) {
 			
 			this.lettersPlayed.notInWord = [];
 
+			this.guessesLeft = null;
+
 			document.getElementById("guessed").innerHTML = '';
 
 			this.user.addLoss();
+
 		}
 		
 	
 		newGame = new Game(user, pirateWords[Math.floor(Math.random() * pirateWords.length)]);
 
+		this.updateBoard();	
+			
 	}
 
 
@@ -147,6 +189,10 @@ var Game = function(user, wordToGuess) {
 		document.getElementById("message").innerHTML = msg;
 	
 	}
+
+
+	this.updateBoard();
+
 
 }
 
