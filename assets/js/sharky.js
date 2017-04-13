@@ -8,6 +8,8 @@ var User = function(name) {
 	this.wins = 0;
 	this.losses = 0;
 
+	//setter and getter functions for the user object.
+
 	this.addWin = function() {
 		this.wins++;
 	}
@@ -29,7 +31,7 @@ var User = function(name) {
 
 var Game = function(user, wordToGuess) {
 
-	console.log(wordToGuess); //for debuggin', and cheating
+	console.log(wordToGuess); //for debuggin', and cheating you filthy pirate!
 
 	this.user = user;
 	this.word = wordToGuess.toUpperCase();
@@ -47,17 +49,15 @@ var Game = function(user, wordToGuess) {
 
 	var instructions = "guess the PIRATE PASSWORD you filthy bilge rat! or down to Davey Jones' locker with ye!";
 	
-
 	document.getElementById("word").innerHTML = this.hiddenWord.join('');
 
-
-	this.reset = function() {
-
-
-	}
-
+ this.reset = function() {
 
 	this.guess = function(guessedLetter) {
+
+ }
+		// first check if the letter has already been played, then  check if the guessed letter is in the randomly selected word.
+		// kick the user out to respective branch.
 
 		if ( this.lettersPlayed.notInWord.includes(guessedLetter) || this.lettersPlayed.inWord.includes(guessedLetter) ) {
 
@@ -73,13 +73,22 @@ var Game = function(user, wordToGuess) {
 
 				} else {
 
+					// turn the guessed letter into a regular expression so we can easily check against it. 
+
 						var guess = new RegExp( guessedLetter , 'ig');
+
+					// use a while loop to find successive matches if the guessed letter appears more than once.
+					//  using .exec in this way in a while loop "the search starts at the substring of [this.word]
+					// specified by the regular expression's lastIndex property (test() will also advance the lastIndex property)."
+					// per the MDN documentation of RegExp.  
 
 						while (check = guess.exec(this.word)) {
 
 							this.hiddenWord[check.index] = guessedLetter;
 
 						}
+
+					// push the guessed letters to an array so we can check them later.
 
 						this.lettersPlayed.inWord.push(guessedLetter);
 						
@@ -91,6 +100,8 @@ var Game = function(user, wordToGuess) {
 
 	this.fail = function() {
 
+		// display the letters guessed but not in random word by joining the array.
+
 		document.getElementById("guessed").innerHTML = this.lettersPlayed.notInWord.join('');
 
 		this.guessesLeft--;
@@ -100,6 +111,8 @@ var Game = function(user, wordToGuess) {
 		}
 
 		this.message('try ANOTHER LETTER you snivilling deck swab!');
+
+		// play the loser sound and update the score board! I'm just kidding, there are no losers here.
 
 		scum.play();
 
@@ -112,11 +125,16 @@ var Game = function(user, wordToGuess) {
 
 		this.message("ARR that's the spirit!");
 
+		// display the current state of the hidden word by setting html as the joined the array.
+
 		document.getElementById("word").innerHTML = this.hiddenWord.join('');
 
 		arr.play();
 
 		this.updateBoard();
+
+		// we can check if all the letters have been guessed by just looking for any underscores in the word.
+		// if none, all letters have been guessed. game over with a win.  
 
 		if (this.hiddenWord.join().includes('_') === false) {
 
@@ -136,6 +154,9 @@ var Game = function(user, wordToGuess) {
 		
 		}
 
+		// the wins and losses counter are mainted by getting the users current win/lose vaiables
+		// then doing a .repeat on the div! the images will reflect the score easy.
+
 		winsHtml = "<img src='assets/images/rum.png' class='rum'>".repeat(this.user.getWins());
 
 		document.getElementById("winsDiv").innerHTML = winsHtml;
@@ -151,6 +172,9 @@ var Game = function(user, wordToGuess) {
 
 
 	this.endOfGame = function(win) {
+
+		// after win or lose update the users win/loss variable using the setter functions we created on the
+		// user object.
 
 		if(win) {
 			this.message('ye arrrrr a PIRATE indeed! welcome aboard! Try to guess me another.');
@@ -176,6 +200,7 @@ var Game = function(user, wordToGuess) {
 
 		}
 		
+		// create a new game once game is over. THERE IS NO ESCAPE FROM THE PIRATE GAME!
 	
 		newGame = new Game(user, pirateWords[Math.floor(Math.random() * pirateWords.length)]);
 
@@ -183,6 +208,7 @@ var Game = function(user, wordToGuess) {
 			
 	}
 
+	// a simple method we can use to update the h1. used as a message board to users.
 
 	this.message = function(msg) {
 
@@ -195,6 +221,8 @@ var Game = function(user, wordToGuess) {
 }
 
 
+// create a user, then build the game with that user and a randomly selected pirate word from array.
+
 var user = new User('Greg');
 
 var newGame = new Game(user, pirateWords[Math.floor(Math.random() * pirateWords.length)]);
@@ -205,9 +233,13 @@ document.onkeyup = function(event) {
 
 	if(newGame) {
 		
+		// we will get the html keycode instead of the key string from the event object.
+
 		var userInput = event.keyCode;
 
-		console.log(event);
+		// we can check user input by looking at the html keycode range. 65 == 'A' and 91 == 'Z'
+		// all other inputs produce an error message to the user and does not send the game a
+		// guessed letter
 
 		if(userInput > 64 && userInput < 91) {
 
