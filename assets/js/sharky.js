@@ -8,6 +8,8 @@ var User = function(name) {
 	this.wins = 0;
 	this.losses = 0;
 
+	//setter and getter functions for the user object.
+
 	this.addWin = function() {
 		this.wins++;
 	}
@@ -29,7 +31,7 @@ var User = function(name) {
 
 var Game = function(user, wordToGuess) {
 
-	console.log(wordToGuess); //for debuggin', and cheating
+	console.log(wordToGuess); //for debuggin', and cheating you filthy pirate!
 
 	this.user = user;
 	this.word = wordToGuess.toUpperCase();
@@ -47,17 +49,14 @@ var Game = function(user, wordToGuess) {
 
 	var instructions = "guess the PIRATE PASSWORD you filthy bilge rat! or down to Davey Jones' locker with ye!";
 	
-
 	document.getElementById("word").innerHTML = this.hiddenWord.join('');
 
 
-	this.reset = function() {
-
-
-	}
-
 
 	this.guess = function(guessedLetter) {
+
+		// first check if the letter has already been played, then  check if the guessed letter is in the randomly selected word.
+		// kick the user out to respective branch.
 
 		if ( this.lettersPlayed.notInWord.includes(guessedLetter) || this.lettersPlayed.inWord.includes(guessedLetter) ) {
 
@@ -73,10 +72,15 @@ var Game = function(user, wordToGuess) {
 
 				} else {
 
+					// turn the guessed letter into a regular expression so we can easily check against it. 
+
 						var guess = new RegExp( guessedLetter , 'ig');
 
-						while (check = guess.exec(this.word)) {
+					// 
 
+						while (guess.exec(this.word)) {
+
+							var check = guess.exec(this.word);
 							this.hiddenWord[check.index] = guessedLetter;
 
 						}
