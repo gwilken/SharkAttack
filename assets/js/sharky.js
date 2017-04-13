@@ -1,6 +1,7 @@
 
 var pirateWords = ['avast', 'arrrrrrghhh', 'mutiney', 'matey', 'binnacle', 'head', 'monkey', 'parrot', 'landlubber', 'booty', 'cutlass', 'jolly', 'jollyroger', 'shark', 'scallywag','whale', 'plank', 'yohoho', 'blimey', 'heave', 'treasure', 'parley', 'holdfast', 'skull', 'pacific' ];
 
+//greg
 
 var User = function(name) {
 
@@ -51,11 +52,12 @@ var Game = function(user, wordToGuess) {
 	
 	document.getElementById("word").innerHTML = this.hiddenWord.join('');
 
- this.reset = function() {
+ 	this.reset = function() {
+ 	}
 
 	this.guess = function(guessedLetter) {
 
- }
+ 
 		// first check if the letter has already been played, then  check if the guessed letter is in the randomly selected word.
 		// kick the user out to respective branch.
 
