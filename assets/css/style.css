@@ -11,11 +11,11 @@
 }
 
 @keyframes bob {
-	0% 	 {top: 60%;
-		  transform: rotate(-4deg); }
+	0% 	 {top: 35%;
+		  transform: rotate(-2deg); }
 
-	100% {top: 63%;	
-		  transform: rotate(4deg); }
+	100% {top: 38%;	
+		  transform: rotate(2deg); }
 }
 
 html, body {
@@ -178,9 +178,9 @@ h4 {
 
 #boat {
 	position: fixed;
-	width: 35%;
-	top: 60%;
-	left: 32%;
+	width: 69%;
+	top: 35%;
+	left: 21%;
 	transform: rotate(-4deg);
 	animation: bob 7s ease-in 0s infinite alternate;
 }

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!-- saved from url=(0185)file:///Users/gregwilken/Dropbox/Code/gitLab/04-2017-Class-Repository-FT/Class-Content/04-jquery-rpg/1-Class-Content/4.1/Activities/7-TriggerRandom/Unsolved/trigger-random-unsolved.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <title>Trigger Random</title>
+
+  <!-- Added link to the jQuery Library -->
+  <script src="./Trigger Random_files/jquery-3.1.1.min.js"></script>
+
+  <!-- Added a link to Bootstrap-->
+  <link rel="stylesheet" href="./Trigger Random_files/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+</head>
+<body>
+
+  <div class="jumbotron">
+
+    <h1 class="text-center">Generate some Winning Lottery Tickets!</h1>
+
+    <div class="text-center">
+
+      <!-- Here we have our button for generating random numbers (#random-button) -->
+      <button id="random-button" class="btn btn-primary btn-lg"><h1><span class="glyphicon glyphicon-question-sign"></span></h1></button>
+      
+    </div>
+
+  </div>
+
+  <!-- Here we have div called "random-number" where our random number will go -->
+  <h1 class="text-center" id="random-number"><li>210545550</li><li>939192034</li>
+    
+    <ul id="lotteryList" style="list-style: none;"></ul>
+
+  </h1>
+
+  <script type="text/javascript">
+
+    $(document).ready(function() {
+
+      // CREATE THE MISSING CODE HERE. Your code should add content to the random-number div.
+      // ...
+
+      var numberDisplay = $('#random-number');
+
+      var count = 0;
+
+
+      $('#random-button').click(function() {
+      
+        count++;
+
+        var lotteryNumberArr = [];
+
+        for(var i = 0; i < 9; i++) {
+
+           var randomNumber = Math.floor(Math.random() * 10);
+
+            lotteryNumberArr.push(randomNumber);
+
+        }
+
+
+        var newNumberDiv = $('<li>' + lotteryNumberArr.join('') + '</li>');
+
+        $('#random-number').prepend(newNumberDiv);
+
+
+        if(count > 10) {
+          $('li').last().remove();
+        }
+
+      });
+
+
+
+
+
+      //numberDisplay.html(randomNumber);
+
+      // ...
+
+    });
+
+  </script>
+  
+
+
+</body></html>
