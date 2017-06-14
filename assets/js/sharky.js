@@ -57,7 +57,6 @@ var Game = function(user, wordToGuess) {
 
 	this.guess = function(guessedLetter) {
 
- 
 		// first check if the letter has already been played, then  check if the guessed letter is in the randomly selected word.
 		// kick the user out to respective branch.
 
